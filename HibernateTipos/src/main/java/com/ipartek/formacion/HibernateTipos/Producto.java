@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "Productos")
 public class Producto {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private long id;
 	@Column
@@ -26,8 +26,10 @@ public class Producto {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_tienda")
 	private Tienda tienda;
+	@Column
+	private String tags;
 
-	public Producto(String nombre, String descripcion, double precio) {
+	public Producto(String nombre, String descripcion, double precio,String[] tags) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
@@ -87,6 +89,7 @@ public class Producto {
 		long temp;
 		temp = Double.doubleToLongBits(precio);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
 		result = prime * result + ((tienda == null) ? 0 : tienda.hashCode());
 		return result;
 	}
@@ -115,6 +118,11 @@ public class Producto {
 		if (Double.doubleToLongBits(precio) != Double
 				.doubleToLongBits(other.precio))
 			return false;
+		if (tags == null) {
+			if (other.tags != null)
+				return false;
+		} else if (!tags.equals(other.tags))
+			return false;
 		if (tienda == null) {
 			if (other.tienda != null)
 				return false;
@@ -127,6 +135,14 @@ public class Producto {
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion="
 				+ descripcion + ", precio=" + precio + ", tienda=" + tienda
-				+ "]";
+				+ ", tags=" + tags + "]";
+	}
+	public void addTag(String tag){
+		if(tags.indexOf(tag)==-1){
+			tags.concat(tag);
+		}
+	}
+	public void removeTag(String tag){
+		tags=tags.replaceAll(tag, "");
 	}
 }

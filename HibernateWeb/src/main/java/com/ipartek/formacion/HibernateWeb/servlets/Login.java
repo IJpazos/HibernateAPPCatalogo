@@ -3,6 +3,7 @@ package com.ipartek.formacion.HibernateWeb.servlets;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,8 +32,20 @@ public class Login extends HttpServlet {
 		Logger log = Logger.getLogger(this.getClass());
 		String nombre = request.getParameter("nombre");
 		String pass = request.getParameter("pass");
-		if (usuario.validar(nombre, pass)) {
+		
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(1800);
 
+		Cookie cookie = new Cookie("JSESSIONID", session.getId());
+		cookie.setMaxAge(1800);
+		response.addCookie(cookie);
+	
+		if(sesion.getAttribute("usuarioLogeado")!=null){
+			log.info("usuario logeado previamente. Redireccionando al perfil...");
+			request.getRequestDispatcher("---RELLENAR CON JSP DE PERFIL---");
+		}else if (usuario.validar(nombre, pass)) {
+			log.info("El usuario es valido.");
+			request.getRequestDispatcher("---RELLENAR CON JSP DE BIENVENIDA---").forward(request,response);
 		}
 	}
 
