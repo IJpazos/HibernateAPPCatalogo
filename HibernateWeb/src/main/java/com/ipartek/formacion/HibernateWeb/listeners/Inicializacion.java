@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.HibernateDAL.DALFactory;
 import com.ipartek.formacion.HibernateDAL.TiendasDAO;
-import com.ipartek.formacion.HibernateDAL.UsuarioDAO;
+import com.ipartek.formacion.HibernateDAL.UsuariosDAO;
 import com.ipartek.formacion.HibernateTipos.Tienda;
 import com.ipartek.formacion.HibernateTipos.Usuario;
 
@@ -41,20 +41,22 @@ public class Inicializacion implements ServletContextListener,
 		log.info("----------HEMOS ENTRADO EN LA INICIALIZACION DEL CONTEXTO--------------");
 		ServletContext aplicacion = sce.getServletContext();
 		// ////////////////////---INICIALIZACION TIENDAS---//////////////////////
-		TiendasDAO tiendasDAO = DALFactory.getTiendaDAO();
-		List<Tienda> tiendas = tiendasDAO.buscarTodos(Tienda.class);
+//		TiendasDAO tiendasDAO = DALFactory.getTiendaDAO();
+		//PRUEBAAAAAAAAAAAAAAAASKFASLFASKFALSJKFJASLK
+		TiendasDAO tiendasDAO = (TiendasDAO) DALFactory.getObjetoDAO("TiendasDAO");
+		List<Tienda> tiendas = tiendasDAO.buscarTodos("Tienda");
 		if (tiendas.isEmpty()) {
 			log.info("La tienda no existe, se creará");
 			tiendasDAO.alta(new Tienda("Casa Pepe",
 					"POH AQUI.....EH....VENDEMOH COSAH"));
-			tiendas = tiendasDAO.buscarTodos(Tienda.class);
+			tiendas = tiendasDAO.buscarTodos("Tienda");
 		} else {
 			log.info("la tienda 1 se ha encontrado");
 		}
 		// ////////////////////---INICIALIZACION USUARIOS---//////////////////////
-		UsuarioDAO usuarioDAO = DALFactory.getUsuarioDAO();
+		UsuariosDAO usuarioDAO = DALFactory.getUsuariosDAO();
 		log.info("vamos a checkear si existen usuarios o no");
-		if(usuarioDAO.buscarPorId(Usuario.class, 1)==null){
+		if(usuarioDAO.buscarPorId("Usuario", 1)==null){
 			log.info("No existe ningun usuario aun");
 			usuarioDAO.alta(new Usuario("admin", "admin", true));
 		}

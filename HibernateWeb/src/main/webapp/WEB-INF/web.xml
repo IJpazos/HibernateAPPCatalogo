@@ -12,8 +12,18 @@
   	<description></description>
   	<servlet-class>com.ipartek.formacion.HibernateWeb.servlets.Login</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ControladorCRUD</servlet-name>
+  	<display-name>ControladorCRUD</display-name>
+  	<description></description>
+  	<servlet-class>com.ipartek.formacion.HibernateWeb.servlets.ControladorCRUD</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>Login</servlet-name>
   	<url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ControladorCRUD</servlet-name>
+  	<url-pattern>/ControladorCRUD</url-pattern>
   </servlet-mapping>
 </web-app>

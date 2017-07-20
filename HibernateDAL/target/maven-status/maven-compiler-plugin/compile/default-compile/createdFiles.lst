@@ -1,6 +1,6 @@
+com\ipartek\formacion\HibernateDAL\UsuariosDAO.class
 com\ipartek\formacion\HibernateDAL\DALFactory.class
 com\ipartek\formacion\HibernateDAL\ObjetoColeccionDAO.class
 com\ipartek\formacion\HibernateDAL\ObjetoDAO.class
-com\ipartek\formacion\HibernateDAL\ProductoDAO.class
 com\ipartek\formacion\HibernateDAL\TiendasDAO.class
-com\ipartek\formacion\HibernateDAL\UsuarioDAO.class
+com\ipartek\formacion\HibernateDAL\ProductosDAO.class

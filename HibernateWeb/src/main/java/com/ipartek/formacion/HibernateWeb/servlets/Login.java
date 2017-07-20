@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.HibernateDAL.DALFactory;
-import com.ipartek.formacion.HibernateDAL.UsuarioDAO;
+import com.ipartek.formacion.HibernateDAL.UsuariosDAO;
 
 /**
  * Servlet implementation class Login
@@ -28,7 +28,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sesion = request.getSession();
-		UsuarioDAO usuario = DALFactory.getUsuarioDAO();
+		UsuariosDAO usuario = DALFactory.getUsuariosDAO();
 		Logger log = Logger.getLogger(this.getClass());
 		String nombre = request.getParameter("nombre");
 		String pass = request.getParameter("pass");

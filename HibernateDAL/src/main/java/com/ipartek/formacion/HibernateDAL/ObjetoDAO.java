@@ -28,7 +28,14 @@ public class ObjetoDAO<T> {
 		em.getTransaction().commit();
 	}
 
-	public T buscarPorId(Class<T> t, long id) {
-		return (T) em.find(t, id);
+	public T buscarPorId(String clase, long id){
+		Class<?> cls = null;
+		try {
+			cls = Class.forName("com.ipartek.formacion.HibernateTipos."+clase);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (T) em.find(cls, id);
 	}
 }
