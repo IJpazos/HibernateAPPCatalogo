@@ -26,6 +26,15 @@ public class Usuario {
 		this.pass = pass;
 		this.admin = admin;
 	}
+	
+
+	public Usuario(Long id, String nombre, String pass) {
+		this.id = id;
+		this.nombre = nombre;
+		this.pass = pass;
+		this.admin = false;
+	}
+
 
 	public Usuario() {
 	}

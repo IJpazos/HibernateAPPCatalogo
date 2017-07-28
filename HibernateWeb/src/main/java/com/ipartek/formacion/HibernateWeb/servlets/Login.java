@@ -32,20 +32,23 @@ public class Login extends HttpServlet {
 		Logger log = Logger.getLogger(this.getClass());
 		String nombre = request.getParameter("nombre");
 		String pass = request.getParameter("pass");
-		
-		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(1800);
+		sesion.setMaxInactiveInterval(1800);
 
-		Cookie cookie = new Cookie("JSESSIONID", session.getId());
+		Cookie cookie = new Cookie("JSESSIONID", sesion.getId());
 		cookie.setMaxAge(1800);
 		response.addCookie(cookie);
 	
 		if(sesion.getAttribute("usuarioLogeado")!=null){
 			log.info("usuario logeado previamente. Redireccionando al perfil...");
-			request.getRequestDispatcher("---RELLENAR CON JSP DE PERFIL---");
+			request.getRequestDispatcher("WEB-INF/perfil.jsp");
 		}else if (usuario.validar(nombre, pass)) {
 			log.info("El usuario es valido.");
-			request.getRequestDispatcher("---RELLENAR CON JSP DE BIENVENIDA---").forward(request,response);
+			sesion.setAttribute("usuarioLogeado", nombre);
+			request.getRequestDispatcher("WEB-INF/tienda.jsp").forward(request,response);
+		}else{
+			log.info("el usuario es incorrecto");
+			request.setAttribute("error", "El usuario o la contraseña son incorrectos");
+			request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
 		}
 	}
 

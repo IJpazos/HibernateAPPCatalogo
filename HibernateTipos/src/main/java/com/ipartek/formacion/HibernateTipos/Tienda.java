@@ -2,7 +2,6 @@ package com.ipartek.formacion.HibernateTipos;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,12 +22,20 @@ public class Tienda {
 	@Column
 	private String descripcion;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tienda")
-	private List<Producto> productos;
+	@OneToMany(mappedBy = "producto")
+	private List<ListaProductos> tiendasProductos;
 
 	public Tienda(String nombre, String descripcion) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+	}
+
+	public List<ListaProductos> getProductos() {
+		return tiendasProductos;
+	}
+
+	public void setProductos(List<ListaProductos> productos) {
+		this.tiendasProductos = productos;
 	}
 
 	public Tienda() {
@@ -66,6 +73,8 @@ public class Tienda {
 				+ ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result
+				+ ((tiendasProductos == null) ? 0 : tiendasProductos.hashCode());
 		return result;
 	}
 
@@ -90,13 +99,18 @@ public class Tienda {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
+		if (tiendasProductos == null) {
+			if (other.tiendasProductos != null)
+				return false;
+		} else if (!tiendasProductos.equals(other.tiendasProductos))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Tienda [id=" + id + ", nombre=" + nombre + ", descripcion="
-				+ descripcion + "]";
+				+ descripcion + ", productos=" + tiendasProductos + "]";
 	}
 
 }

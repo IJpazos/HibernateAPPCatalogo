@@ -8,6 +8,8 @@
   <class>com.ipartek.formacion.HibernateTipos.Producto</class><!-- Un class por cada clase de nuestro paquete EJE NO OLVIDAR -->
   <class>com.ipartek.formacion.HibernateTipos.Tienda</class>
   <class>com.ipartek.formacion.HibernateTipos.Usuario</class>
+  <class>com.ipartek.formacion.HibernateTipos.ListaProductos</class>
+  <class>com.ipartek.formacion.HibernateTipos.ListaProductosId</class>
     <properties>
         <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /><!-- Aquí es la direccion del driver que usaras -->
         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/hibernateappcatalogo" /><!-- la url de la base de datos -->

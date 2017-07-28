@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 
 import org.apache.log4j.Logger;
 
-public class ObjetoDAO<T> {
+public class ObjetoDAO<T> implements InterfaceCRUDDAL<T>{
 	protected EntityManagerFactory emf;
 	protected EntityManager em;
 	protected Logger log;
@@ -28,14 +28,9 @@ public class ObjetoDAO<T> {
 		em.getTransaction().commit();
 	}
 
-	public T buscarPorId(String clase, long id){
-		Class<?> cls = null;
-		try {
-			cls = Class.forName("com.ipartek.formacion.HibernateTipos."+clase);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return (T) em.find(cls, id);
+	@SuppressWarnings("unchecked")
+	public T buscarPorId(Class clase, long id){
+
+		return (T) em.find(clase, id);
 	}
 }

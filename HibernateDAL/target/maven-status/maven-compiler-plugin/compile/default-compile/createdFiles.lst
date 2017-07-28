@@ -4,3 +4,5 @@ com\ipartek\formacion\HibernateDAL\ObjetoColeccionDAO.class
 com\ipartek\formacion\HibernateDAL\ObjetoDAO.class
 com\ipartek\formacion\HibernateDAL\TiendasDAO.class
 com\ipartek\formacion\HibernateDAL\ProductosDAO.class
+com\ipartek\formacion\HibernateDAL\ListaProductosDAO.class
+com\ipartek\formacion\HibernateDAL\InterfaceCRUDDAL.class

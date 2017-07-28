@@ -1,13 +1,14 @@
 package com.ipartek.formacion.HibernateTipos;
 
-import javax.persistence.CascadeType;
+import java.util.HashSet;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,27 +24,23 @@ public class Producto {
 	private String descripcion;
 	@Column
 	private double precio;
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_tienda")
-	private Tienda tienda;
+	@OneToMany(mappedBy = "tienda")
+	private List<ListaProductos> tiendasProductos;
 	@Column
-	private String tags;
+	private HashSet<String> tags;
 
-	public Producto(String nombre, String descripcion, double precio,String[] tags) {
+	public Producto(String nombre, String descripcion, double precio, String... tags) {
+		//En versiones de java menores de 1.5, ha de ser String[] y usar un array
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
+		this.tags = new HashSet<String>();
+		for (String string : tags) {
+			this.tags.add(string);
+		}
 	}
 
 	public Producto() {
-	}
-
-	public Tienda getTienda() {
-		return tienda;
-	}
-
-	public void setTienda(Tienda tienda) {
-		this.tienda = tienda;
 	}
 
 	public long getId() {
@@ -52,6 +49,14 @@ public class Producto {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public List<ListaProductos> getTienda() {
+		return tiendasProductos;
+	}
+
+	public void setTienda(List<ListaProductos> tienda) {
+		this.tiendasProductos = tienda;
 	}
 
 	public String getNombre() {
@@ -90,7 +95,7 @@ public class Producto {
 		temp = Double.doubleToLongBits(precio);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
-		result = prime * result + ((tienda == null) ? 0 : tienda.hashCode());
+		result = prime * result + ((tiendasProductos == null) ? 0 : tiendasProductos.hashCode());
 		return result;
 	}
 
@@ -123,10 +128,10 @@ public class Producto {
 				return false;
 		} else if (!tags.equals(other.tags))
 			return false;
-		if (tienda == null) {
-			if (other.tienda != null)
+		if (tiendasProductos == null) {
+			if (other.tiendasProductos != null)
 				return false;
-		} else if (!tienda.equals(other.tienda))
+		} else if (!tiendasProductos.equals(other.tiendasProductos))
 			return false;
 		return true;
 	}
@@ -134,15 +139,22 @@ public class Producto {
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion="
-				+ descripcion + ", precio=" + precio + ", tienda=" + tienda
+				+ descripcion + ", precio=" + precio + ", tienda=" + tiendasProductos
 				+ ", tags=" + tags + "]";
 	}
 	public void addTag(String tag){
-		if(tags.indexOf(tag)==-1){
-			tags.concat(tag);
-		}
+		tags.add(tag);
 	}
 	public void removeTag(String tag){
-		tags=tags.replaceAll(tag, "");
+		tags.remove(tag);
+		
 	}
+	public HashSet<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(HashSet<String> tags) {
+		this.tags = tags;
+	}
+	
 }

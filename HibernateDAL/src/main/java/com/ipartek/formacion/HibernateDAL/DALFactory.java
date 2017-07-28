@@ -40,4 +40,7 @@ public class DALFactory {
 		}
 		return obj;
 	}
+	public static ListaProductosDAO getListaProductosDAO(){
+		return new ListaProductosDAO();
+	}
 }

@@ -22,11 +22,12 @@ public class UsuariosDAO extends ObjetoColeccionDAO<Usuario> {
 				.createQuery("FROM Usuario where nombre=:nombre and pass=:pass");
 		query.setParameter("nombre", nombre);
 		query.setParameter("pass", pass);
+		System.out.println(nombre+","+pass);
 		try {
 			Usuario usuario = (Usuario) query.getSingleResult();
 			esValido = true;
 		} catch (NoResultException nre) {
-			log.info("No se encontró ningun usuario");
+//			log.info("No se encontró ningun usuario");
 		}
 		return esValido;
 	}
